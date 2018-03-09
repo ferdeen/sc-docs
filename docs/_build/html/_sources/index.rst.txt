@@ -10,6 +10,7 @@ Welcome to Stratis Smart Contracts's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   determinism.rst
 
 
 Indices and tables
