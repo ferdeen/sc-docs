@@ -6,11 +6,16 @@
 Stratis Smart Contracts
 ===================================================
 
+Here we will have a brief introduction of what a smart contract is
+
+Contents
+========
+
+:ref:`search`
+
 .. toctree::
    :maxdepth: 2
 
    getting-started.rst
    determinism.rst
    opcodes-and-serialization.rst
-
-* :ref:`search`
