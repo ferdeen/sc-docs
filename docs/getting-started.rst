@@ -26,16 +26,6 @@ You'll notice the class Auction in Auction.cs is just a C# class. If you're not 
 
 ::
 
-    pragma solidity ^0.4.0;
+  using Stratis.SmartContracts;
 
-    contract SimpleStorage {
-        uint storedData;
-
-        function set(uint x) public {
-            storedData = x;
-        }
-
-        function get() public constant returns (uint) {
-            return storedData;
-        }
-    }
+  public class Auction : SmartContract
