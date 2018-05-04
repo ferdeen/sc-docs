@@ -76,3 +76,5 @@ For lists of information, developers also have access to ``ISmartContractList`` 
        EndBlock = Block.Number + durationBlocks;
        HasEnded = false;
    }
+
+FROM HERE: FINISH UP CODE EXPLANATIONS, VALIDATE AND COMPILE THE CONTRACT WITH COMMAND-LINE TOOL.
