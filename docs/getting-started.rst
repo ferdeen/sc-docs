@@ -15,4 +15,27 @@ What You'll Need
 * `Stratis' Command Line Smart Contract Tool <https://www.visualstudio.com/downloads/>`_
     To validate your contracts, and more easily compile and deploy them.
 
+Your First Contract
+-------------------
+
 Once the template has been installed, in Visual Studio you can navigate to File > New > Project… and create a new ‘Stratis SmartContract Project’ under ‘Visual C#’.
+
+This will generate a completely new solution with a sample contract - an auction, and a project with some sample unit tests.
+
+You'll notice the class Auction in Auction.cs is just a C# class. If you're not a C# developer you may want to firstly delve into the `basics of C# development <https://docs.microsoft.com/en-us/dotnet/csharp/>`_. This tutorial will focus on the smart contact-specific parts of the code.
+
+::
+
+    pragma solidity ^0.4.0;
+
+    contract SimpleStorage {
+        uint storedData;
+
+        function set(uint x) public {
+            storedData = x;
+        }
+
+        function get() public constant returns (uint) {
+            return storedData;
+        }
+    }
