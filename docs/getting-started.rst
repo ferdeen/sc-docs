@@ -29,3 +29,47 @@ You'll notice the class Auction in Auction.cs is just a C# class. If you're not 
   using Stratis.SmartContracts;
 
   public class Auction : SmartContract
+
+The first line in the contract is a reference to the ``Stratis.SmartContracts`` NuGet package. This allows you to inherit from the ``SmartContract`` class and provides you access to useful functionality such as sending funds, hashing and saving data. If you're not using the Visual Studio template, you can create smart contracts just by including the ``Stratis.SmartContracts`` NuGet package in your project and inheriting from ``SmartContract`` as done here.
+The only libraries that are allowed to be included in the current iteration of Stratis Smart Contracts are ``System``, ``System.Linq`` and ``Stratis.SmartContracts``.
+
+::
+
+  public Address Owner
+  {
+    get
+    {
+        return PersistentState.GetObject<Address>("Owner");
+    }
+    set
+    {
+        PersistentState.SetObject<Address>("Owner", value);
+    }
+  }
+
+The Auction object has several properties structured similarly to the above. Any time we want to persist data inside of a smart contract, we can do so via ``PersistentState``. This can happen anywhere and doesn't have to occur within a property, but doing so inside properties like this makes the code inside your methods easier to read.
+The ``Address`` class is included as part of ``Stratis.SmartContracts`` and is an abstraction over strings that enables the sending of funds to addresses as we'll see soon.
+
+::
+
+  public ISmartContractMapping<ulong> ReturnBalances
+  {
+    get
+    {
+        return PersistentState.GetMapping<ulong>("ReturnBalances");
+    }
+  }
+
+``PersistentState.GetMapping`` returns a dictionary-like structure for storage. Using a standard .NET dictionary would require serializing and deserializing all of the dictionary data every time it was updated. For dictionaries with thousands of entries (think balances of a token contract), this would require a significant amount of processing. ``ISmartContractMapping`` instead stores individual values directly into the underlying ``PersistentState``.
+For lists of information, developers also have access to ``ISmartContractList`` and ``PersistentState.GetList``.
+
+
+::
+
+  public Auction(ISmartContractState smartContractState, ulong durationBlocks)
+   : base(smartContractState)
+   {
+       Owner = Message.Sender;
+       EndBlock = Block.Number + durationBlocks;
+       HasEnded = false;
+   }
