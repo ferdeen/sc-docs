@@ -77,4 +77,7 @@ For lists of information, developers also have access to ``ISmartContractList`` 
        HasEnded = false;
    }
 
+The contract constructor is what gets run when the contract is created for the first time. Contracts must override the base class constructor and inject ``ISmartContractState`` which must be the first parameter to the constructor. Other parameters which can be input upon the creation of the transaction should come after this first parameter.
+
+The ``Message`` and ``Block`` objects are readonly properties on the `SmartContract` class that we inherit from. These properties provide access to information about the current context that the contract call is executing. e.g. block numbers, the address that called the contract, etc.
 FROM HERE: FINISH UP CODE EXPLANATIONS, VALIDATE AND COMPILE THE CONTRACT WITH COMMAND-LINE TOOL.
