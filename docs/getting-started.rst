@@ -79,7 +79,7 @@ For lists of information, developers also have access to ``ISmartContractList`` 
 
 The contract constructor is what gets run when the contract is created for the first time. Contracts must override the base class constructor and inject ``ISmartContractState`` which must be the first parameter to the constructor. Other parameters which can be input upon the creation of the transaction should come after this first parameter.
 
-The ``Message`` and ``Block`` objects are readonly properties on the `SmartContract` class that we inherit from. These properties provide access to information about the current context that the contract call is executing. e.g. block numbers, the address that called the contract, etc.
+The ``Message`` and ``Block`` objects are readonly properties on the ``SmartContract`` class that we inherit from. These properties provide access to information about the current context that the contract call is executing. e.g. block numbers, the address that called the contract, etc.
 
 Assigning a value to each of ``Owner``, ``EndBlock`` and ``HasEnded`` is saving the values in ``PersistentState`` via their property setters. Setting ``Owner`` in particular is a very common pattern when developing smart contracts, enabling us to give extra functionality to the creator of the contract. In this case, you'll notice in the ``AuctionEnd`` method that funds are sent to ``Owner``.
 
@@ -96,9 +96,11 @@ Assigning a value to each of ``Owner``, ``EndBlock`` and ``HasEnded`` is saving 
       return transferResult.Success;
   }
 
-There are a few more methods in the ``Auction`` class, but to finish off we'll go through some of the intricacies of the ``Withdraw`` method and hopefully the rest is self-explanatory.
+There are a few more methods in the ``Auction`` class, but to finish off we'll go through some of the intricacies of the ``Withdraw`` method.
 
-This method checks whether the caller has a balance to Withdraw. If they do, this balance will be deducted from the state and they will be sent the funds. The ``Assert`` method, inherited from ``SmartContract``, provides a simple way to reject contract executions that don't meet certain criteria.
+This method checks whether the caller has a balance to Withdraw. If they do, this balance will be deducted from the state and they will be sent the funds.
+
+The ``Assert`` method, inherited from ``SmartContract``, provides a simple way to reject contract executions that don't meet certain criteria. In this case, we're using it to reject any further execution when the message sender doesn't have a balance in our contract.
 
 ``TransferFunds`` enables the sending of funds to a specific address. This will send funds to ordinary addresses or contracts. A third parameter can be specified as input for this method to give more information about the method etc. to call on a contract.
 
@@ -129,7 +131,7 @@ To validate your contract and see it's bytecode, in Visual Studio, right click o
   ByteCode
   4D5A90000300000004000000F...
 
-Congratulations! You've compiled your first smart contract in C#. That bytecode is a hexadecimal representation of the .NET IL compiled for this contract, and (provided you have a node running) is all you need to go and deploy your contract on a network.
+Congratulations! You've compiled your first smart contract in C#. That bytecode is a hexadecimal representation of the .NET IL compiled for this contract, and is all you need to go and deploy your contract on a network (provided you have a node running).
 
 To understand why this tool is important, you may want to go back to your contract and add this line somewhere in there:
 
@@ -139,4 +141,4 @@ To understand why this tool is important, you may want to go back to your contra
 
 Consider why this line is problematic inside a smart contract and shouldn't be allowed to run on the network. Different nodes are going to execute that code at different times and all receive a different result for ``DateTime.Now``. If this value was persisted in some way, all of the nodes would receive a different outcome for the contract state, and would fail to reach consensus.
 
-Run the validation command from above again and notice how the command-line tool recognizes the non-deterministic call.
+Run the validation command from above again and notice how the command-line tool recognizes this non-deterministic call.
