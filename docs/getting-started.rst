@@ -80,4 +80,29 @@ For lists of information, developers also have access to ``ISmartContractList`` 
 The contract constructor is what gets run when the contract is created for the first time. Contracts must override the base class constructor and inject ``ISmartContractState`` which must be the first parameter to the constructor. Other parameters which can be input upon the creation of the transaction should come after this first parameter.
 
 The ``Message`` and ``Block`` objects are readonly properties on the `SmartContract` class that we inherit from. These properties provide access to information about the current context that the contract call is executing. e.g. block numbers, the address that called the contract, etc.
+
+Assigning a value to each of ``Owner``, ``EndBlock`` and ``HasEnded`` is saving the values in ``PersistentState`` via their property setters. Setting ``Owner`` in particular is a very common pattern when developing smart contracts, enabling us to give extra functionality to the creator of the contract. In this case, you'll notice in the ``AuctionEnd`` method that funds are sent to ``Owner``. 
+
+::
+
+  public bool Withdraw()
+  {
+      ulong amount = ReturnBalances[Message.Sender];
+      Assert(amount > 0);
+      ReturnBalances[Message.Sender] = 0;
+      ITransferResult transferResult = TransferFunds(Message.Sender, amount);
+      if (!transferResult.Success)
+          ReturnBalances[Message.Sender] = amount;
+      return transferResult.Success;
+  }
+
+There are a few more methods in the ``Auction`` class, but to finish off we'll go through some of the intricacies of the ``Withdraw`` method and hopefully the rest is self-explanatory. 
+
+This method checks whether the caller has a balance to Withdraw. If they do, this balance will be deducted from the state and they will be sent the funds. The ``Assert`` method, inherited from ``SmartContract``, provides a simple way to reject contract executions that don't meet certain criteria.
+
+``TransferFunds`` enables the sending of funds to a specific address. This will send funds to ordinary addresses or contracts. A third parameter can be specified as input for this method to give more information about the method etc. to call on a contract.
+
+.. note::
+  You may be wondering why there is a Withdraw method at all. Why not just transfer the funds to their owner as soon as they become available? We do this because the owner of these funds could be another contract that we don't control. In sending the funds back, we would potentially be calling unknown computation using another user's funds. As such, this ``Withdraw`` pattern is really common in smart contracts. If users call a contract, that contract execution should never delve into an untrusted contract's code.
+
 FROM HERE: FINISH UP CODE EXPLANATIONS, VALIDATE AND COMPILE THE CONTRACT WITH COMMAND-LINE TOOL.
