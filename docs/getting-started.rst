@@ -81,7 +81,7 @@ The contract constructor is what gets run when the contract is created for the f
 
 The ``Message`` and ``Block`` objects are readonly properties on the `SmartContract` class that we inherit from. These properties provide access to information about the current context that the contract call is executing. e.g. block numbers, the address that called the contract, etc.
 
-Assigning a value to each of ``Owner``, ``EndBlock`` and ``HasEnded`` is saving the values in ``PersistentState`` via their property setters. Setting ``Owner`` in particular is a very common pattern when developing smart contracts, enabling us to give extra functionality to the creator of the contract. In this case, you'll notice in the ``AuctionEnd`` method that funds are sent to ``Owner``. 
+Assigning a value to each of ``Owner``, ``EndBlock`` and ``HasEnded`` is saving the values in ``PersistentState`` via their property setters. Setting ``Owner`` in particular is a very common pattern when developing smart contracts, enabling us to give extra functionality to the creator of the contract. In this case, you'll notice in the ``AuctionEnd`` method that funds are sent to ``Owner``.
 
 ::
 
@@ -96,7 +96,7 @@ Assigning a value to each of ``Owner``, ``EndBlock`` and ``HasEnded`` is saving 
       return transferResult.Success;
   }
 
-There are a few more methods in the ``Auction`` class, but to finish off we'll go through some of the intricacies of the ``Withdraw`` method and hopefully the rest is self-explanatory. 
+There are a few more methods in the ``Auction`` class, but to finish off we'll go through some of the intricacies of the ``Withdraw`` method and hopefully the rest is self-explanatory.
 
 This method checks whether the caller has a balance to Withdraw. If they do, this balance will be deducted from the state and they will be sent the funds. The ``Assert`` method, inherited from ``SmartContract``, provides a simple way to reject contract executions that don't meet certain criteria.
 
@@ -105,4 +105,38 @@ This method checks whether the caller has a balance to Withdraw. If they do, thi
 .. note::
   You may be wondering why there is a Withdraw method at all. Why not just transfer the funds to their owner as soon as they become available? We do this because the owner of these funds could be another contract that we don't control. In sending the funds back, we would potentially be calling unknown computation using another user's funds. As such, this ``Withdraw`` pattern is really common in smart contracts. If users call a contract, that contract execution should never delve into an untrusted contract's code.
 
-FROM HERE: FINISH UP CODE EXPLANATIONS, VALIDATE AND COMPILE THE CONTRACT WITH COMMAND-LINE TOOL.
+Validating Your Contract
+------------------------
+
+When you attempt deploy your contract by including it in a transaction, nodes are going to validate that the contract bytecode is in the correct format and is deterministic. Of course you'll want to know that your contract meets this criteria before you try and deploy, so our command-line contract validation tool will help you do just that.
+
+You can find out more about the validation tool by running ``dotnet run -- validate help`` in the directory of the smart contract validation tool.
+
+To validate your contract and see it's bytecode, in Visual Studio, right click on your Auction.cs file and click 'Copy Path'. On the command line, run ``dotnet run -- validate [PASTE_YOUR_PATH HERE] -sb``. You should see output that ends up looking like this:
+
+::
+
+  ====== Smart Contract Validation results for file [YOUR_FILE_PATH] ======
+  Compilation Result
+  Compilation OK: True
+
+  Format Validation Result
+  Format Valid: True
+
+  Determinism Validation Result
+  Determinism Valid: True
+
+  ByteCode
+  4D5A90000300000004000000F...
+
+Congratulations! You've compiled your first smart contract in C#. That bytecode is a hexadecimal representation of the .NET IL compiled for this contract, and (provided you have a node running) is all you need to go and deploy your contract on a network.
+
+To understand why this tool is important, you may want to go back to your contract and add this line somewhere in there:
+
+::
+
+  var test = DateTime.Now;
+
+Consider why this line is problematic inside a smart contract and shouldn't be allowed to run on the network. Different nodes are going to execute that code at different times and all receive a different result for ``DateTime.Now``. If this value was persisted in some way, all of the nodes would receive a different outcome for the contract state, and would fail to reach consensus.
+
+Run the validation command from above again and notice how the command-line tool recognizes the non-deterministic call.
