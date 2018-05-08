@@ -16,6 +16,8 @@ The smart contract daemon is located in the ``src/Stratis.StratisSmartContractsD
 .. warning::
   The smart contract test network will break. We provide no guarantee of its uptime and may reset the network as deemed necessary. For the most up-to-date information, join us on Discord: :ref:`support_and_community`.
 
+TODO: Create a wallet, get funds and possibly mine.
+
 
 Contract Deployment
 -------------------
