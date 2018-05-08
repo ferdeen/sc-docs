@@ -12,8 +12,8 @@ What You'll Need
     The standard IDE for C# development. The Community Edition is available for free.
 * `Stratis Smart Contract Visual Studio Solution Template <https://www.visualstudio.com/downloads/>`_
     A template .NET Core solution with a sample contract project and sample unit testing project.
-* `Stratis' Command Line Smart Contract Tool <https://www.visualstudio.com/downloads/>`_
-    To validate your contracts, and more easily compile and deploy them.
+* `Stratis' Smart Contract Enabled Full Node <https://github.com/stratisproject/StratisBitcoinFullNode>`_
+    The `sc-alpha` branch on this repository contains everything needed to run a node that can sync and mine on a smart contract network. It also contains the `Sct` tool which helps validate contracts, and more easily compile and deploy them.
 
 Your First Contract
 -------------------
