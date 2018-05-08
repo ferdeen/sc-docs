@@ -110,11 +110,15 @@ The ``Assert`` method, inherited from ``SmartContract``, provides a simple way t
 Validating Your Contract
 ------------------------
 
-When you attempt deploy your contract by including it in a transaction, nodes are going to validate that the contract bytecode is in the correct format and is deterministic. Of course you'll want to know that your contract meets this criteria before you try and deploy, so our command-line contract validation tool will help you do just that.
+When you attempt deploy your contract by including it in a transaction, nodes are going to validate that the contract bytecode is in the correct format and is deterministic. Of course you'll want to know that your contract meets this criteria before you try and deploy. `Sct`, our command-line smart contract validation tool will help you do just that.
 
-You can find out more about the validation tool by running ``dotnet run -- validate help`` in the directory of the smart contract validation tool.
+You can find out more about the validation tool by firstly navigating to it's project directory, from the Full Node directory, and then running the help command:
+::
 
-To validate your contract and see it's bytecode, in Visual Studio, right click on your Auction.cs file and click 'Copy Path'. On the command line, run ``dotnet run -- validate [PASTE_YOUR_PATH HERE] -sb``. You should see output that ends up looking like this:
+  cd src/Stratis.SmartContracts.Tools.Sct
+  dotnet run -- validate help
+
+To validate your contract and see it's bytecode, right click on your Auction.cs file in Visual Studio and click 'Copy Path'. On the command line, run ``dotnet run -- validate [PASTE_YOUR_PATH HERE] -sb``. You should see output that ends up looking like this:
 
 ::
 
