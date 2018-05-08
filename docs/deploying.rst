@@ -14,7 +14,7 @@ The smart contract daemon is located in the ``src/Stratis.StratisSmartContractsD
   dotnet run -- connect=20.190.57.145
 
 .. warning::
-  The smart contract test network will break. We provide no guarantee of its uptime and may reset the network as deemed necessary. For the most up-to-date information, join us on Discord: `Support and Community`_.
+  The smart contract test network will break. We provide no guarantee of its uptime and may reset the network as deemed necessary. For the most up-to-date information, join us on Discord: :ref:`support_and_community`.
 
 
 Contract Deployment

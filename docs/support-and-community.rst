@@ -1,3 +1,5 @@
+.. _support_and_community:
+
 ###############################
 Support and Community
 ###############################
