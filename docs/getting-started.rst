@@ -22,7 +22,7 @@ Once the template has been installed, in Visual Studio you can navigate to File 
 
 This will generate a completely new solution with a sample contract - an auction, and a project with some sample unit tests.
 
-You'll notice the class Auction in Auction.cs is just a C# class. If you're not a C# developer you may want to firstly delve into the `basics of C# development <https://docs.microsoft.com/en-us/dotnet/csharp/>`_. This tutorial will focus on the smart contact-specific parts of the code.
+You'll notice the class Auction in Auction.cs is just a C# class. If you're not a C# developer you may want to firstly delve into the `basics of C# development <https://docs.microsoft.com/en-us/dotnet/csharp/>`_. This tutorial will focus on the smart contract-specific parts of the code.
 
 ::
 
