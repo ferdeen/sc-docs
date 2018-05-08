@@ -30,4 +30,5 @@ Contents
    testing.rst
    deploying.rst
    code-deep-dive.rst
+   report-a-bug.rst
    support-and-community.rst
