@@ -7,7 +7,17 @@ With Stratis Smart Contracts, your tests can be developed and debugged using C# 
 .. info::
   Testing of Stratis Smart Contracts is still primitive. Future versions of smart contracts will enable testing with the resource tracking code injected, and on top of a local test blockchain.
 
-Get Template [link to template]
+This section will again reference the `Visual Studio Template <https://www.visualstudio.com/downloads/>`_. If you're not using the template, the testing code can be found `here <https://www.visualstudio.com/downloads/>_`.
+
+The tests here use the ``Microsoft.VisualStudio.TestTools.UnitTesting`` library, so may be familiar to C# developers.
+
+Briefly:
+* ``[TestClass]`` defines a class in which tests are defined.
+* ``[TestInitialize]`` is used to mark a method to be run before tests execute, most commonly to set up some testing context.
+* ``[TestMethod]`` marks the actual tests to be run.
+* The static class ``Assert`` provides access to a range of methods to validate the results of whatever execution you perform inside your tests.
+
+To run all of the tests together, in Visual Studio right click on ``[TestClass]`` and select `Run Tests`. To run tests individually, right click on the individual method and select `Run Tests`.
 
 Right click and run unit test
 
