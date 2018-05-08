@@ -1,5 +1,5 @@
 ###############################
-SmartContract class API
+SmartContract Class API
 ###############################
 
-Work In Progress
+To be written.

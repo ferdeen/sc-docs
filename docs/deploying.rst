@@ -1,6 +1,24 @@
 ###############################
-Deploying
+Deploying and Calling Contracts
 ###############################
+
+Running a Node
+--------------
+
+To start interacting on a test smart contract network you'll need to clone the `sc-alpha` branch of the `Full Node <https://github.com/stratisproject/StratisBitcoinFullNode>`_ locally.
+
+The smart contract daemon is located in the ``src/Stratis.StratisSmartContractsD`` folder. With the command line open in this directory, you can run the following command to start a node and join our test network:
+
+::
+
+  dotnet run -- connect=20.190.57.145
+
+  .. warning::
+      The smart contract test network will break. We provide no guarantee of its uptime and may reset the network as deemed necessary. For the most up-to-date information, join us on Discord: `Support and Community`_.
+
+
+Contract Deployment
+-------------------
 
 A contract must be deployed before it can be used. A Stratis smart contract deployment involves several steps:
 
@@ -39,3 +57,6 @@ If the contract you are deploying accepts constructor params, you can additional
 Success
 '''''''
 If the contract was deployed successfully, the tool will return the address of the contract.
+
+Calling Contracts
+-----------------

@@ -2,4 +2,4 @@
 Smart Contract Opcodes
 ###############################
 
-Work In Progress
+To be written.
