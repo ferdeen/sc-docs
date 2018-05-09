@@ -50,7 +50,7 @@ A contract can only be deployed to a node running locally, using a local wallet,
 
 ::
 
-  dotnet run -- deploy Contract.cs http://localhost:38220 -wallet mywallet -account "account 0" -password password -fee 1000 -gasprice 1 -gaslimit 30000
+  dotnet run deploy Contract.cs http://localhost:38220 -wallet mywallet -account "account 0" -password password -fee 1000 -gasprice 1 -gaslimit 30000
 
 Deployment with constructor params
 '''''''
